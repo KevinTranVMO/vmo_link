@@ -237,8 +237,6 @@ function formDataTable(data) {
 	return `
     <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">shortenLink Manager</h1>
-    
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
       <div class="card-header py-3">
@@ -260,14 +258,6 @@ function formDataTable(data) {
             </thead>
             <tfoot>
               <tr>
-			  <th>ShortUrl</th>
-			  <th>LongUrl</th>
-			  <th>Status</th>
-			  <th>Create at</th>
-			  <th>Clicks</th>
-			  <th>Password</th>
-			  <th>Expire</th>
-			  <th>Option</th>
               </tr>
             </tfoot>
 			<tbody>

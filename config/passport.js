@@ -20,7 +20,7 @@ passport.use('google.login',
     new googleStrategy({
         clientID: process.env.clientID,
         clientSecret: process.env.clientSecret,
-        callbackURL: '/auth/google/callback'
+        callbackURL: process.env.nameDomain + 'auth/google/callback'
     }, (accessToken, refreshToken, profile, done) => {
         if (profile.id) {
             account.findOne({ 'google.api_id': profile.id })
