@@ -134,10 +134,6 @@ function formProfile(firstname, lastname, description) {
         <div class="text-center">
             <img src="/img/logo.jpg" style="height: 200px;"
             class="avatar rounded-circle" alt="avatar">
-              <div class="input-file-container">
-            <input class="input-file file-upload" id="my-file" type="file">
-            <label tabindex="0" for="my-file" class="input-file-trigger">PHOTO</label>
-          </div>
         </div>
         </hr><br>
         <ul class="list-group">
@@ -150,14 +146,9 @@ function formProfile(firstname, lastname, description) {
       <div class="col-sm-9">
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#profile">profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#change-password">change password</a>
+            <a class="nav-link active" data-toggle="tab" href="#profile">Profile</a>
           </li>
         </ul>
-
-
         <div class="tab-content">
           <div class="container tab-pane active" id="profile">
             <hr>
@@ -168,7 +159,7 @@ function formProfile(firstname, lastname, description) {
                     <h4>First name</h4>
                   </label>
                   <input type="text" class="form-control" name="first_name" id="first_name" value="`+ firstname + `" placeholder="first name"
-                    title="enter your first name if any.">
+                    title="Enter your first name if any.">
                 </div>
               </div>
               <div class="form-group">
@@ -178,7 +169,7 @@ function formProfile(firstname, lastname, description) {
                     <h4>Last name</h4>
                   </label>
                   <input type="text" class="form-control" name="last_name" id="last_name" value="`+ lastname + `" placeholder="last name"
-                    title="enter your last name if any.">
+                    title="Enter your last name if any.">
                 </div>
               </div>
               <div class="form-group">
@@ -203,52 +194,6 @@ function formProfile(firstname, lastname, description) {
             <hr>
 
           </div>
-          <!--/tab-pane-->
-          <div class="container tab-pane" id="change-password">
-
-            <hr>
-            <div class="form" action="##" method="post" id="registrationForm">
-              <div class="form-group">
-                <div class="col-xs-6">
-                  <label for="currentPassword">
-                    <h5>Current password</h5>
-                  </label>
-                  <input type="password" class="form-control" name="currentPassword" id="current-password" placeholder="current password"
-                    title="enter your password.">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-xs-6">
-                  <label for="newPassword">
-                    <h5>New password</h5>
-                  </label>
-                  <input type="password" class="form-control" name="newPassword" id="new-password" placeholder="new password"
-                    title="enter your password.">
-                </div>
-              </div>
-              <div class="form-group">
-
-                <div class="col-xs-6">
-                  <label for="repeatPassword">
-                    <h5>Repeat password</h5>
-                  </label>
-                  <input type="password" class="form-control" name="repeatPassword" id="repeat-password" placeholder="repeat password"
-                    title="enter your password.">
-                </div>
-              </div>
-              <div class="form-group">
-                <strong id="message-change"></strong>
-              </div>
-              <div class="form-group">
-                <div class="col-xs-12">
-                  <br>
-                  <button id="btn-change-password" class="btn btn-lg btn-success" data-toggle="modal" data-target="#changePasswordModal">Save</button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <!--/tab-pane-->
         </div>
         <!--/tab-pane-->
       </div>

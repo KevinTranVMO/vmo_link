@@ -329,26 +329,6 @@ function formStatistic(){
             </div>
           </div>
         </div>
-
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-          <div class="card border-left-success shadow h-100 py-2">
-            <div class="card-body">
-              <div class="row no-gutters align-items-center card-top">
-                <div class="col mr-2">
-                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Top</div>
-                    <div class="text-sm font-weight-bold text-warning mb-1 top1">Top</div>
-                    <div class="text-sm font-weight-bold text-secondary mb-1 top2">Top</div>
-                    <div class="text-sm font-weight-bold text-info mb-1 top3">Top</div>
-                </div>
-                <div class="col-auto">
-                  <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
 
       <div class="row">
@@ -356,7 +336,7 @@ function formStatistic(){
             <div class="card shadow mb-4">
               <!-- Card Header - Dropdown -->
               <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">the number of access</h6>
+                <h6 class="m-0 font-weight-bold text-primary">The number of access</h6>
                 <div class="dropdown no-arrow">
                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>

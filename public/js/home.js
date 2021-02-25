@@ -128,13 +128,13 @@ function optionAdvanced() {
 	return `<div class="form-group row">
 	<div class="col-xs-6 col-sm-6 col-md-6">
     <div class="form-group">
-      <input type="text" name="password" id="password" class="form-control input-sm rounded-pill" placeholder="password">
+      <input type="text" name="Password" id="password" class="form-control input-sm rounded-pill" placeholder="Password">
     </div>
   </div>
   <div class="col-xs-6 col-sm-6 col-md-6">
     <div class="form-group">
       <input type="text" name="custom-link" id="custom-link" class="form-control input-sm rounded-pill"
-        placeholder="custom address">
+        placeholder="Custom address">
     </div>
   </div>
   </div>
@@ -142,15 +142,15 @@ function optionAdvanced() {
     <div class="row">
       <div class="col-xs-6 col-sm-6 col-md-6">
         <div class="form-group">
-          <input type="text" name="expire" id="expire" class="form-control input-sm rounded-pill" placeholder="times">
+          <input type="text" name="expire" id="expire" class="form-control input-sm rounded-pill" placeholder="Times">
         </div>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-6">
         <div class="form-group">
           <select class="form-control rounded-pill" id="select-option">
-            <option value="0">minutes</option>
-            <option value="1">hours</option>
-            <option value="2">day</option>
+            <option value="0">Minutes</option>
+            <option value="1">Hours</option>
+            <option value="2">Day</option>
           </select>
         </div>
       </div>

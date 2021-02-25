@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>VMO-Shortenlink</title>
+  <title>VMO-Slink</title>
 
   <!-- Bootstrap core CSS -->
   <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,14 +20,14 @@
     type="text/css">
 
   <!-- Custom styles for this template -->
-  <link href="/css/landing-page.min.css" rel="stylesheet">
+  <link href="/css/landing-page.css" rel="stylesheet">
 
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light static-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand" href="/"> <img class="rounded-circle" style="max-height: 40px;" src="/img/logo.jpg"> VMO-Shortenlink</a>
+      <a class="navbar-brand" href="/"> <img class="rounded-circle" style="max-height: 40px;" src="/img/Slink.png">VMO-Slink</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
         aria-label="Toggle navigation">
@@ -37,17 +37,17 @@
         <ul class="navbar-nav ml-auto">
           <% if (!logged){%>
           <li class="nav-item">
-            <a class="nav-link text-info" href="/signup"><button class="btn btn-block btn-info rounded-pill">Signup</button></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-info" href="/login"><button class="btn btn-block btn-info rounded-pill">Signin</button></a>
+            <a href="/auth/google" class="btn btn-google btn-user btn-block">
+              <i class="fab fa-google fa-fw"></i> Login with Google
+            </a>
+            <!-- <a class="nav-link text-info" href="/auth/google"><button class="btn btn-block btn-secondary rounded-pill">Signin with Google</button></a> -->
           </li>
           <% } else { %>
             <li class="nav-item">
-              <a class="nav-link text-info" href="/auth/manager"><button class="btn btn-block btn-info rounded-pill">Manager</button></a>
+              <a class="nav-link text-info" href="/auth/manager"><button class="btn btn-block btn-light rounded-pill">Manager</button></a>
             </li>
           <li class="nav-item">
-            <a class="nav-link text-info" href="/logout"><button class="btn btn-block btn-info rounded-pill">Logout</button></a>
+            <a class="nav-link text-info" href="/logout"><button class="btn btn-block btn-light rounded-pill">Logout</button></a>
           </li>
           <% } %>
         </ul>
@@ -63,52 +63,45 @@
       <div class="row" id="demo">
         <div class="col-xl-9 mx-auto">
           <h2 class="mb-3">Build a shortenLink page for your business and everyone</h2>
-          <h4 class="mb-5">you have to login to set password, expire, custom address</h4>
+          <h4 class="mb-5">You have to login to set password, expire, custom address</h4>
           <!-- <h3 class="mb-2">you have to login to set password, expire, custom address</h3> -->
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-          <!-- <div class="row" id="show-error">
-            <div class="alert alert-danger">
-              <strong>Opps, </strong><span>link invalid</span> <br>
-            </div>
-          </div> -->
           <div class="row" id="shorten-link">
-            <!-- <p class="mx-auto mb-2"><i id="btn-copy" style="cursor:pointer;" class="far fa-copy fa-lg"></i> <span id="content-copy">content ok</span> </p> -->
-            <!-- <p class="mx-auto mb-2"><i id="btn-copy" style="cursor:pointer;" class="far fa-copy fa-lg" data-toggle="tooltip" data-placement="top" title="click to copy"></i> 
-              <span id="content-copy" class="bg-light text-dark">http://localhost:4000/' + shorten + '</span> </p> -->
           </div>
           <div role="form">
             <div class="row">
               <div class="col-12 col-md-9 mb-2 mb-md-0">
                 <div class="form-group">
                   <input type="text" id="long-link" class="form-control form-control-lg"
-                    placeholder="Enter your link...">
+                    placeholder="Enter your long link...">
                 </div>
               </div>
               <div class="col-12 col-md-3">
                 <div class="form-group">
                   <% if (logged){%>
-                  <button id="get-short-link-user" class="btn btn-block btn-lg btn-primary rounded-pill">shorter</button>
+                  <button id="get-short-link-user" style="background-color: white;
+                  color: #857272;
+                  border-color: white;" class="btn btn-block btn-lg btn-primary rounded-pill">Shorter</button>
                   <% } else { %>
-                  <button id="get-short-link-guest" class="btn btn-block btn-lg btn-primary rounded-pill">shorter</button>
+                  <button id="get-short-link-guest" style="background-color: white;
+                  color: #857272;
+                  border-color: white;" class="btn btn-block btn-lg btn-primary rounded-pill">Shorter</button>
                   <% } %>
                 </div>
               </div>
             </div>
-            <hr class="hr-or">
             <!-- <div class="text-left">
               <span class="bg-warning text-dark text-uppercase" style="cursor:pointer;" id="option-advanced">option advanced</span>
             </div> -->
             <div class="custom-control custom-checkbox mb-3 text-left">
               <input type="checkbox" class="custom-control-input" id="option-advanced" name="example1">
-              <label class="custom-control-label text-warning" for="option-advanced">Option Advanced</label>
+              <label style="color:white !important;" class="custom-control-label text-warning" for="option-advanced">Option Advanced</label>
             </div>
 
             <div id="option-div" class="text-left">
-               
             </div>
           </div>
-         
         </div>
       </div>
     </div>
@@ -153,44 +146,8 @@
   <footer class="footer bg-light">
     <div class="container">
       <div class="row">
-        <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
-          <ul class="list-inline mb-2">
-            <li class="list-inline-item">
-              <a href="#">About</a>
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="#">Contact</a>
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="#">Terms of Use</a>
-            </li>
-            <li class="list-inline-item">&sdot;</li>
-            <li class="list-inline-item">
-              <a href="#">Privacy Policy</a>
-            </li>
-          </ul>
-          <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2020. All Rights Reserved.</p>
-        </div>
-        <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-          <ul class="list-inline mb-0">
-            <li class="list-inline-item mr-3">
-              <a href="#">
-                <i class="fab fa-facebook fa-2x fa-fw"></i>
-              </a>
-            </li>
-            <li class="list-inline-item mr-3">
-              <a href="#">
-                <i class="fab fa-twitter-square fa-2x fa-fw"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-instagram fa-2x fa-fw"></i>
-              </a>
-            </li>
-          </ul>
+        <div class="col-lg-12 h-100 text-center text-lg-center my-auto">
+          <p style="font-size: 15px;" class="text-muted small mb-4 mb-lg-0">&copy; Made with VanMy C10 VMOJP </p>
         </div>
       </div>
     </div>
