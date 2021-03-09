@@ -1,162 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <title>VMO-TanLink</title>
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,400;0,700;1,200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <link rel="stylesheet" href="/css/app.css">
 
-  <title>VMO-Slink</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PNS8GEJH5M"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-  <!-- Bootstrap core CSS -->
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Custom fonts for this template -->
-  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
-  <link href="/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
-    type="text/css">
-
-  <!-- Custom styles for this template -->
-  <link href="/css/landing-page.css" rel="stylesheet">
-
+        gtag('config', 'G-PNS8GEJH5M');
+  </script>
 </head>
-
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light static-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand" href="/"> <img class="rounded-circle" style="max-height: 40px;" src="/img/Slink.png">VMO-Slink</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <% if (!logged){%>
-          <li class="nav-item">
-            <a href="/auth/google" class="btn btn-google btn-user btn-block">
-              <i class="fab fa-google fa-fw"></i> Login with Google
-            </a>
-            <!-- <a class="nav-link text-info" href="/auth/google"><button class="btn btn-block btn-secondary rounded-pill">Signin with Google</button></a> -->
-          </li>
-          <% } else { %>
-            <li class="nav-item">
-              <a class="nav-link text-info" href="/auth/manager"><button class="btn btn-block btn-light rounded-pill">Manager</button></a>
-            </li>
-          <li class="nav-item">
-            <a class="nav-link text-info" href="/logout"><button class="btn btn-block btn-light rounded-pill">Logout</button></a>
-          </li>
-          <% } %>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-
-  <!-- Masthead -->
-  <header class="masthead text-white text-center">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row" id="demo">
-        <div class="col-xl-9 mx-auto">
-          <h2 class="mb-3">Build a shortenLink page for your business and everyone</h2>
-          <h4 class="mb-5">You have to login to set password, expire, custom address</h4>
-          <!-- <h3 class="mb-2">you have to login to set password, expire, custom address</h3> -->
+<div class="container-design">
+    <div class="main">
+        <div class="header-design">
+            <div class="header__logo">
+                <img src="/img/logo.png" alt="Logo">
+            </div>
+            <div class="header__actions">
+                <% if (!logged){%>
+                    <a class="btn_authen" href="/auth/google">
+                        Login with&nbsp;&nbsp;
+                        <em class="fab fa-google font-size-25"></em>
+                    </a>
+                <% } else { %>
+                    <a class="btn_authen" href="/auth/manager">Manager</a>
+                    <a class="btn_authen" href="/logout">Logout</a>
+                <% } %>
+            </div>
         </div>
-        <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-          <div class="row" id="shorten-link">
-          </div>
-          <div role="form">
-            <div class="row">
-              <div class="col-12 col-md-9 mb-2 mb-md-0">
-                <div class="form-group">
-                  <input type="text" id="long-link" class="form-control form-control-lg"
-                    placeholder="Enter your long link...">
+
+        <div class="content-design">
+            <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center">
+                <div class="toast" role="alert" style="position: fixed;" aria-live="assertive" aria-atomic="true" data-delay="6000">
+                  <div class="toast-header toast-design">
+                    <strong class="mr-auto text-warning">SHORTEN ERROR</strong>
+                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div id="display-error" class="toast-body text-muted toast-design" style="font-size: 1.5rem; min-height: 100px; min-width: 300px; text-align: center;">
+                  </div>
                 </div>
-              </div>
-              <div class="col-12 col-md-3">
-                <div class="form-group">
-                  <% if (logged){%>
-                  <button id="get-short-link-user" style="background-color: white;
-                  color: #857272;
-                  border-color: white;" class="btn btn-block btn-lg btn-primary rounded-pill">Shorter</button>
-                  <% } else { %>
-                  <button id="get-short-link-guest" style="background-color: white;
-                  color: #857272;
-                  border-color: white;" class="btn btn-block btn-lg btn-primary rounded-pill">Shorter</button>
-                  <% } %>
+            </div>
+
+            <div class="content__title">
+                <h1 class="mt-3">Welcome to Tanlink</h1>
+                <h3 class="mt-2" style="margin-bottom: 30px;">Build a shortenLink page for your business and everyone</h3>
+            </div>
+
+            <div class="content__body">
+<!--                Shorten link display-->
+                <div class="flex-between" style="align-items: center;">
+                    <div class="flex-center width-100">
+                        <div class="shorten_link">
+                            <p id="shorten-link"></p>
+                        </div>
+                    </div>
+                    <div class="flex-center align-item-center margin-left-20">
+                        <button id="btn-copy" class="btn--orange mb-2" data-toggle="tooltip" data-placement="top" title="click to copy">Copy</button>
+                    </div>
                 </div>
-              </div>
+<!--                Original link input-->
+                <div class="flex-between">
+                    <div class="flex-center width-100">
+                        <input id="long-link" class="link-input" type="text" placeholder="Enter that long link...">
+                    </div>
+                    <div class="flex-center align-item-center margin-left-20">
+                        <% if (logged){%>
+                            <button id="get-short-link-user" class="btn--orange">Shorten</button>
+                        <% } else { %>
+                            <button id="get-short-link-guest" class="btn--orange">Shorten</button>
+                        <% } %>
+                    </div>
+                    
+                </div>
+<!--                Option display-->
+                <div class="padding-left-right-20 margin-top-20">
+                    <div class="flex-between">
+                        <label class="checkbox__container">
+                            <input id="option-advanced" type="checkbox">
+                                Advanced options
+                            <span class="checkmark"></span>
+                        </label>
+                        <p class="note margin-top-7">*You need to login to set password, expire date and customer the link address</p>
+                    </div>
+                    <div id="option-div">
+                    </div>
+                </div>
             </div>
-            <!-- <div class="text-left">
-              <span class="bg-warning text-dark text-uppercase" style="cursor:pointer;" id="option-advanced">option advanced</span>
-            </div> -->
-            <div class="custom-control custom-checkbox mb-3 text-left">
-              <input type="checkbox" class="custom-control-input" id="option-advanced" name="example1">
-              <label style="color:white !important;" class="custom-control-label text-warning" for="option-advanced">Option Advanced</label>
-            </div>
-
-            <div id="option-div" class="text-left">
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </header>
-
-  <!-- Icons Grid -->
-  <section class="features-icons bg-light text-center">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class="icon-screen-desktop m-auto text-primary"></i>
-            </div>
-            <h3>Fully Responsive</h3>
-            <p class="lead mb-0">This theme will look great on any device, no matter the size!</p>
-          </div>
+    <div class="introduce">
+        <div class="introduce__arrow">
+            <img src="/img/arrow.png" alt="arrow">
         </div>
-        <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class="icon-layers m-auto text-primary"></i>
+        <h2 class="introduce__title">Tanlink will strongly support your branding</h2>
+        <div class="introduce__content">
+            <div class="card-design">
+                <p class="card__title">Inspire trust</p>
+                <div class="card__image handshake_background">
+                    <img src="/img/introduce1.png" alt="Handshake">
+                </div>
+                <div class="card__content">
+                    A professional looking link will increase brand recognition and consumer trust in your
+                    communications—which in turn inspires even more engagement with your links.
+                </div>
             </div>
-            <h3>Managing links</h3>
-            <p class="lead mb-0">Create, protect and delete your links and monitor them with detailed statistics.</p>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="features-icons-item mx-auto mb-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class="icon-check m-auto text-primary"></i>
+            <div class="card-design">
+                <p class="card__title">Managing links</p>
+                <div class="card__image asset_background">
+                    <img src="/img/introduce2.png" alt="Asset">
+                </div>
+                <div class="card__content">
+                    With advanced options, you can create, protect and delete your links.
+                    You can also monitor them with detailed statistics which will help you to easily manage your link list.
+                </div>
             </div>
-            <h3>Easy to Use</h3>
-            <p class="lead mb-0">Ready to use with your link, or customize the link!</p>
-          </div>
+            <div class="card-design">
+                <p class="card__title">Boost results</p>
+                <div class="card__image boost_background">
+                    <img src="/img/introduce3.png" alt="Boost">
+                </div>
+                <div class="card__content">
+                    On top of better deliverability and click-through, rich link-level data gives you crucial insight
+                    into your link engagement so your team can make smarter decisions around its content and communications.
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 h-100 text-center text-lg-center my-auto">
-          <p style="font-size: 15px;" class="text-muted small mb-4 mb-lg-0">&copy; Made with VanMy C10 VMOJP </p>
-        </div>
-      </div>
+    <div class="footer">
+        <p>© Made with VanMy C10 VMOJP</p>
     </div>
-  </footer>
-
-  <!-- Bootstrap core JavaScript -->
-  <script src="/vendor/jquery/jquery.min.js"></script>
-  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/js/home.js"></script>
+</div>
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/js/home.js"></script>
 </body>
-
 </html>

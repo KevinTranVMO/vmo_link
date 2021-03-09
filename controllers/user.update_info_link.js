@@ -1,7 +1,7 @@
 const shortlink = require('../models/shortlink')
 
 module.exports = (req, res)=>{
-    let { id ,password, customLink, expire, selected} = req.body
+    let { id ,password, customLink, expire, selected, longUrl} = req.body
     if (customLink) {
         checkCustomLink()
             .then(()=> updateInfoLink())
@@ -16,6 +16,7 @@ module.exports = (req, res)=>{
             if (link.isBlock) 
                 return res.json({ message: 'link was blocked, not change', success: true })
             if (password) link.password = password
+            link.longUrl = longUrl
             if (expire) {
                 if (selected === '0') {
                     let date = new Date()
@@ -56,6 +57,7 @@ module.exports = (req, res)=>{
                     return res.json({ message: 'link was blocked, not change', success: true })
                 if (password) link.password = password
                 link.shortUrl = customLink
+                link.longUrl = longUrl
                 if (expire) {
                     if (selected === '0') {
                         let date = new Date()
