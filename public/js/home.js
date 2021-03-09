@@ -91,7 +91,7 @@ $(document).ready(function () {
 						$('#option-div').fadeIn()
 					}
 					else {
-						setWithError('you need login to use option advanced')
+						setWithError('You need login to use option advanced')
 					}
 				},
 				error: function (stt, err) {
