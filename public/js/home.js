@@ -50,7 +50,7 @@ $(document).ready(function () {
 				selected: selected
 			},
 			success: function (dt) {
-				enableBtn('#get-short-link-user', 'shorter')
+				enableBtn('#get-short-link-user', 'Shorten')
 				let { message, success } = dt
 				if (success == '1') {
 					setWithSuccess(message)
