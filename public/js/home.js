@@ -50,7 +50,7 @@ $(document).ready(function () {
 				selected: selected
 			},
 			success: function (dt) {
-				enableBtn('#get-short-link-user', 'shorter')
+				enableBtn('#get-short-link-user', 'Shorten')
 				let { message, success } = dt
 				if (success == '1') {
 					setWithSuccess(message)
@@ -91,7 +91,7 @@ $(document).ready(function () {
 						$('#option-div').fadeIn()
 					}
 					else {
-						setWithError('you need login to use option advanced')
+						setWithError('You need login to use option advanced')
 					}
 				},
 				error: function (stt, err) {
