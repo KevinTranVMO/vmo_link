@@ -132,7 +132,7 @@ function formProfile(firstname, lastname, description) {
       <div class="col-sm-3">
         <!--left col-->
         <div class="text-center">
-            <img src="/img/logo.jpg" style="height: 200px;"
+            <img src="/img/logo.png" style="height: 200px;"
             class="avatar rounded-circle" alt="avatar">
         </div>
         </hr><br>

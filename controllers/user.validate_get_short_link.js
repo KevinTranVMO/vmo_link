@@ -7,18 +7,18 @@ module.exports = (req, res, next)=>{
     let regExOption = /^(?:0|1|2)$/i
     let { longLink, password, customLink, expire, selected} = req.body
     if ( !regExLonglink.test(longLink) ) 
-        return res.json({ message: 'link illegal', success: '0' })
+        return res.json({ message: 'Link invalid.', success: '0' })
     if ( selected )
         if ( !regExOption.test(selected))
-            return res.json({ message: 'option illegal', success: '0' })
+            return res.json({ message: 'Option invalid.', success: '0' })
     if ( password ) 
         if ( !regExPassword.test(password)) 
-            return res.json({ message: 'password illegal, least 5 character', success: '0' })
+            return res.json({ message: 'Password invalid, least 5 character.', success: '0' })
     if ( customLink )
         if ( !regExCustomLink.test(customLink))
-            return res.json({ message: 'custom link illegal, least 7 character', success: '0' })
+            return res.json({ message: 'Custom link invalid, least 7 character.', success: '0' })
     if ( expire )
         if ( !regExExpire.test(expire))
-            return res.json({ message: 'expire illegal, maxium 99', success: '0' })
+            return res.json({ message: 'Expire invalid, maxium 99.', success: '0' })
     return next()
 }
