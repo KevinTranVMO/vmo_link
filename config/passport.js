@@ -5,12 +5,10 @@ const account = require('../models/account')
 const bcrypt = require('bcrypt')
 
 passport.serializeUser((acc, done) => {
-    console.log('------serialize----')
     done(null, acc._id)
 })
 
 passport.deserializeUser((id, done) => {
-    console.log('------deserialize-----')
     account.findById(id)
         .then(acc => done(null, acc))
         .catch(err => done(err))

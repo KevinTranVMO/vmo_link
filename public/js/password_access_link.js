@@ -1,6 +1,6 @@
 function disableBtn(id){
     $(id).prop('disabled', true)
-    $(id).html('Loading...<span class="spinner-grow spinner-grow-sm"></span><span class="spinner-grow spinner-grow-sm"></span><span class="spinner-grow spinner-grow-sm"></span>')
+    $(id).html('<span class="spinner-grow spinner-grow-sm"></span><span class="spinner-grow spinner-grow-sm"></span><span class="spinner-grow spinner-grow-sm"></span>')
 }
 
 function enableBtn(id, content){
@@ -9,7 +9,6 @@ function enableBtn(id, content){
 }
 
 $(document).ready(function(){
-    $('.alert-danger').hide()
     $(document).on('click', '#btn-confirm', function(){
         disableBtn('#btn-confirm')
         let shortUrl1 = $('#shortUrl').text()
@@ -25,13 +24,11 @@ $(document).ready(function(){
             },
             success: function(dt){
                 let { message, success} = dt
-                setTimeout(() => {
-                    enableBtn('#btn-confirm', 'Confirm')
-                }, 300)
+                enableBtn('#btn-confirm', 'Confirm')
                 if (success) window.location.href = message
                 else {
-                    $('.alert-danger').show()
-                    $('#show-error').text(message)
+                    $('#display-error').text(message)
+                    $('.toast').toast('show');
                 }
             },
             error: function(status, err){

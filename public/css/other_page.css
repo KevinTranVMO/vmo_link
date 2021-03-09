@@ -1,0 +1,117 @@
+body {
+    background: url("../img/logo.png") no-repeat fixed left 95px top 36px,
+    linear-gradient(75.06deg, #FCD6A9 0%, rgba(255, 235, 212, 0) 88.21%);
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.container-design {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container__body {
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.05);
+    display: flex;
+}
+.img_404 {
+    width: 737px;
+    height: 563px;
+    background: url("../img/tanlink@4x 1.png") no-repeat;
+}
+.content_404 {
+    width: 513px;
+    background-color: white;
+    padding-top: 40px;
+    text-align: center;
+}
+a {
+    font-style: normal;
+    font-size: 20px;
+    color: olivedrab;
+    text-decoration: none;
+}
+a:hover {
+    font-size: 25px;
+}
+.description_404 {
+    margin-top: 100px;
+    font-style: normal;
+    font-size: 20px;
+    color: #939393;
+}
+.margin-top-100 {
+    margin-top: 100px;
+}
+.img_password {
+    width: 737px;
+    height: 563px;
+    background: url("../img/tanlink@4x 1.png") no-repeat;
+}
+.content_password {
+    width: 513px;
+    background-color: #f9debf;
+    padding-top: 90px;
+    text-align: center;
+    filter: drop-shadow(0px 8px 24px rgba(0, 0, 0, 0.05));
+}
+.content_password h3 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+}
+.content_password p {
+    font-style: normal;
+    font-weight: lighter;
+    font-size: 20px;
+}
+.padding-left-right-60 {
+    padding: 0 60px 0 60px;
+}
+.width-100 {
+    width: 100%;
+}
+.margin-top-40 {
+    margin-top: 40px;
+}
+input:focus {
+    outline: 0;
+}
+.password {
+    border: 1px solid #FCD6A9;
+    box-sizing: border-box;
+    border-radius: 20px;
+    height: 46px;
+    padding: 0 26px 0 26px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 20px;
+    font-weight: lighter;
+}
+.password:focus {
+    border: 2px solid #FF9F1C;
+}
+.btn__confirm {
+    background: #F9A024;
+    border: 1px solid #FCD6A9;
+    border-radius: 20px;
+    height: 46px;
+    font-family: 'Source Sans Pro', sans-serif;
+    margin-top: 15px;
+    font-weight: normal;
+    font-size: 20px;
+    color: white
+}
+.btn__confirm:hover {
+    transform:scale(1.05);
+    background-color: #f3920d;
+}
+.divider {
+    width: 50%;
+    margin-top: 25px;
+}
+
+.toast-design {
+}

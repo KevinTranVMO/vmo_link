@@ -5,15 +5,15 @@ $(document).ready(function () {
 			method: 'GET',
 			dataType: 'json',
 			success: function (dt) {
-				let { message, success } = dt
+				let { message, success, nameDomain } = dt
 				if ( success ) {
-					$('#body-content').html(formDataTable(message))
+					$('#body-content').html(formDataTable(message, nameDomain))
 					$('#dataTable').DataTable({
 						"columnDefs": [
 							{ className: "text-center", "targets": [2,4,5, 7] }
 						]
 					})
-				}else window.location.href = '/login'
+				}else window.location.href = '/'
 			},
 			error: function (stt, err) {
 				console.log(stt, err)
@@ -30,7 +30,7 @@ $(document).ready(function () {
 	$(document).on('click', '.btn-update-link', function(){
 		let idUpdateLink = $(this).parent().parent().attr('id')
 		let isBlock = $(this).parent().parent().attr('class')
-		let shortUrl = $(this).parent().parent().find('td:eq(0)').html()
+		let shortUrl = $(this).parent().parent().find('td:eq(0) a').html()
 		let longUrl = $(this).parent().parent().find('td:eq(1) div.scrollable').html()
 		let status = $(this).parent().parent().find('td:eq(2)').html()
 		let createAt = $(this).parent().parent().find('td:eq(3)').html()
@@ -59,6 +59,8 @@ $(document).ready(function () {
 		let password =  $('#password').val()
 		let customLink = $('#custom-link').val()
 		let expire = $('#expire').val()
+		let longUrl = $('#longUrl').val()
+		let shortUrl = $('#shortUrl').val()
 		let selected = $('#select-option').find(":selected").val()
 		if ( expire && selected) {
 			if (selected === '0') {
@@ -76,7 +78,15 @@ $(document).ready(function () {
 			}
 		}
 		if (password) trUpdate.password = password
-		if (customLink) trUpdate.shortUrl = customLink
+		let nameDomain = '';
+		if (customLink) {
+			nameDomain = getDomainFromShortUrl(shortUrl)
+			trUpdate.shortUrl = customLink
+		}
+		if (longUrl) {
+			longUrl = longUrl.trim()
+			trUpdate.longUrl = longUrl
+		}
 		$.ajax({
 			url: '/auth/user/update-info-shortenlink',
 			method: 'PUT',
@@ -86,19 +96,19 @@ $(document).ready(function () {
 				password: password,
 				customLink: customLink,
 				expire: expire,
-				selected: selected
+				selected: selected,
+				longUrl: longUrl,
 			},
 			success: function(dt){
 				let { message, success } = dt
-				console.log(success)
 				if (success) {
 					if (message) $('#update-show-error').text(message)
 					else {
 						//$('#update-show-error').text('')
 						$('#UpdateLinkModal').modal('hide')
-						$('tr#'+ trUpdate._id).replaceWith(updateTrTable(trUpdate))
+						$('tr#'+ trUpdate._id).replaceWith(updateTrTable(trUpdate, nameDomain))
 					}
-				} else window.location.href = '/login'
+				} else window.location.href = '/'
 				$('tr#'+ trUpdate._id).fadeOut()
 				$('tr#'+ trUpdate._id).fadeIn()
 			},
@@ -133,7 +143,7 @@ $(document).ready(function () {
 						//$('tr#'+ idDelete).replaceWith(updateTrTable(trUpdate))
 						$('tr#'+ idDelete).remove()
 					}
-				} else window.location.href = '/login'
+				} else window.location.href = '/'
 				
 				// $('tr#'+ idDelete).fadeIn()
 			},
@@ -146,19 +156,19 @@ $(document).ready(function () {
 
 // update form
 function checkStatusUpdate(isBlock, expire){
-	if (isBlock === 'true') return '<span class="bg-danger text-white">Blocked</span>'
+	if (isBlock === 'true') return '<span class="badge badge-danger">Blocked</span>'
 	else if (expire){
 		if ( new Date(expire) <= Date.now()) 
-			return '<span class="bg-warning text-dark">Expired</span>'
+			return '<span class="badge badge-warning">Expired</span>'
 	}
-	return '<span class="bg-info text-dark">Active</span>'
+	return '<span class="badge badge-info">Active</span>'
 }
 
-function updateTrTable(link) {
+function updateTrTable(link, nameDomain) {
 	let result = ''
 	result += `
 		<tr id="`+ link._id +`" class="`+ link.isBlock +`">
-			<td>`+link.shortUrl+`</td>
+			<td><a href="`+ nameDomain + link.shortUrl +`" target="_blank">`+ nameDomain + link.shortUrl +`</a></td>
 			<td>  <div class=scrollable> `+link.longUrl+` </div> </td>
 			<td class="text-center">`+checkStatusUpdate(link.isBlock ,link.expire)+`</td>
 			<td>`+parseDate(link.createAt)+`</td>
@@ -180,12 +190,12 @@ function updateTrTable(link) {
 
 //
 function checkStatus(isBlock, expire){
-	if (isBlock) return '<span class="bg-danger text-white">Blocked</span>'
+	if (isBlock) return '<span class="badge badge-danger">Blocked</span>'
 	else if (expire){
 		if ( new Date(expire) <= Date.now()) 
-			return '<span class="bg-warning text-dark">Expired</span>'
+			return '<span class="badge badge-warning">Expired</span>'
 	}
-	return '<span class="bg-info text-dark">Active</span>'
+	return '<span class="badge badge-info">Active</span>'
 }
 
 function checkUnderfined(check){
@@ -204,12 +214,12 @@ function parseDate(date){
 	else return ''
 }
 
-function formatData(dt) {
+function formatData(dt, nameDomain) {
 	let result = ''
 	for (let link of dt) {
 		result += `
 		<tr id="`+ link._id +`" class="`+ link.isBlock +`">
-			<td>`+link.shortUrl+`</td>
+			<td><a href="`+ nameDomain + link.shortUrl +`" target="_blank">`+ nameDomain + link.shortUrl +`</a></td>
 			<td>  <div class=scrollable>`+link.longUrl+`</div> </td>
 			<td>`+checkStatus(link.isBlock ,link.expire)+`</td>
 			<td>`+parseDate(link.createAt)+`</td>
@@ -233,7 +243,7 @@ function formatData(dt) {
 	
 }
 
-function formDataTable(data) {
+function formDataTable(data, nameDomain) {
 	return `
     <div class="container-fluid">
     <!-- Page Heading -->
@@ -261,7 +271,7 @@ function formDataTable(data) {
               </tr>
             </tfoot>
 			<tbody>
-			`+ formatData(data) +`
+			`+ formatData(data, nameDomain) +`
             </tbody>
           </table>
         </div>
@@ -269,4 +279,11 @@ function formDataTable(data) {
     </div>
 </div>
     `
+}
+
+function getDomainFromShortUrl(shortUrl) {
+	let arr = shortUrl.split('/')
+	arr.pop()
+	let domain = arr.join('/');
+	return domain + '/';
 }

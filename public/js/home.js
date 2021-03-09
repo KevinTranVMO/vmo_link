@@ -1,9 +1,10 @@
 
 $(document).ready(function () {
-	var status = false
-	$('#shorten-link').fadeToggle()
-	// $('#btn-copy').tooltip()
+
+	$('#btn-copy').tooltip()
 	$('#option-div').fadeToggle()
+	$('#shorten-link').fadeIn()
+
 	$(document).on('click', '#get-short-link-guest', function () {
 		disableBtn('#get-short-link-guest')
 		$('#shorten-link').fadeOut()
@@ -14,12 +15,13 @@ $(document).ready(function () {
 			dataType: 'json',
 			data: { longLink: longLink },
 			success: function (dt) {
-				enableBtn('#get-short-link-guest', 'shorter')
+				enableBtn('#get-short-link-guest', 'Shorten')
 				let { message, success } = dt
 				if (success) {
-					$('#shorten-link').html(shortenLink(message))
-					$('#btn-copy').tooltip()
-				} else $('#shorten-link').html(showError(message))
+					setWithSuccess(message)
+				} else {
+					setWithError(message)
+				}
 				$('#shorten-link').fadeIn()
 			},
 			error: function (stt, err) {
@@ -27,6 +29,7 @@ $(document).ready(function () {
 			}
 		})
 	})
+
 	$(document).on('click', '#get-short-link-user', function () {
 		disableBtn('#get-short-link-user')
 		$('#shorten-link').fadeOut()
@@ -47,17 +50,14 @@ $(document).ready(function () {
 				selected: selected
 			},
 			success: function (dt) {
+				enableBtn('#get-short-link-user', 'shorter')
 				let { message, success } = dt
 				if (success == '1') {
-					$('#shorten-link').html(shortenLink(message))
-					$('#btn-copy').tooltip()
+					setWithSuccess(message)
 				}
 				else if (success == '0')
-					$('#shorten-link').html(showError(message))
-				else window.location.href = '/login'
-				enableBtn('#get-short-link-user', 'shorter')
-				// if (success) 
-				// else $('#shorten-link').html(showError(message))
+					setWithError(message)
+				else window.location.href = '/logout'
 				$('#shorten-link').fadeIn()
 			},
 			error: function (stt, err) {
@@ -65,17 +65,20 @@ $(document).ready(function () {
 			}
 		})
 	})
+
 	$(document).on('click', '#btn-copy', function () {
-		// console.log('check----')
 		$('#btn-copy').tooltip('hide').attr('data-original-title', 'copied').tooltip('show')
 		var temp = $("<input>")
 		$("body").append(temp)
-		temp.val($('#content-copy').text()).select()
+		temp.val($('#shorten-link').text()).select()
 		document.execCommand("copy")
 		temp.remove()
 	})
+
+	var status = false
+
 	$(document).on('click', '#option-advanced', function () {
-		if (!status)
+		if (!status && $('#option-advanced').is(":checked"))
 			$.ajax({
 				url: '/option-advanced',
 				method: 'POST',
@@ -84,13 +87,11 @@ $(document).ready(function () {
 					let { logged } = dt
 					if (logged) {
 						status = logged
-						$('#option-div').append(optionAdvanced())
+						$('#option-div').html(optionAdvanced())
 						$('#option-div').fadeIn()
-					} 
+					}
 					else {
-						$('#shorten-link').fadeOut()
-						$('#shorten-link').html(showError('you need login to use option advanced'))
-						$('#shorten-link').fadeIn()
+						setWithError('You need login to use option advanced')
 					}
 				},
 				error: function (stt, err) {
@@ -99,7 +100,6 @@ $(document).ready(function () {
 			})
 		else $('#option-div').fadeToggle()
 	})
-
 })
 
 function disableBtn(id) {
@@ -112,48 +112,40 @@ function enableBtn(id, content) {
 	$(id).text(content)
 }
 
-function showError(message) {
-	return '<div class="alert alert-danger mx-auto">'
-		+ '<strong>Oops, </strong><span>' + message + '</span> <br>'
-		+ '</div>'
-}
-
-function shortenLink(shorten) {
-	// return '<span class="mx-auto mb-2"><i id="btn-copy" style="cursor: pointer;" class="far fa-copy"></i> <span id="content-copy">http://localhost:4000/'+shorten+'</span>  </span>'
-	return `<p class="mx-auto mb-2"><i id="btn-copy" style="cursor:pointer;" class="far fa-copy fa-lg" data-toggle="tooltip" data-placement="top" title="click to copy"></i> 
-	<span id="content-copy" class="bg-light text-dark">`+ shorten +`</span> </p>`
-}
-
 function optionAdvanced() {
-	return `<div class="form-group row">
-	<div class="col-xs-6 col-sm-6 col-md-6">
-    <div class="form-group">
-      <input type="text" name="Password" id="password" class="form-control input-sm rounded-pill" placeholder="Password">
-    </div>
-  </div>
-  <div class="col-xs-6 col-sm-6 col-md-6">
-    <div class="form-group">
-      <input type="text" name="custom-link" id="custom-link" class="form-control input-sm rounded-pill"
-        placeholder="Custom address">
-    </div>
-  </div>
-  </div>
-  <div class="col-xs-5 col-sm-5 col-md-5">
-    <div class="row">
-      <div class="col-xs-6 col-sm-6 col-md-6">
-        <div class="form-group">
-          <input type="text" name="expire" id="expire" class="form-control input-sm rounded-pill" placeholder="Times">
-        </div>
-      </div>
-      <div class="col-xs-6 col-sm-6 col-md-6">
-        <div class="form-group">
-          <select class="form-control rounded-pill" id="select-option">
-            <option value="0">Minutes</option>
-            <option value="1">Hours</option>
-            <option value="2">Day</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>`
-} 
+	return `<div class="flex-center">
+				<input class="simple-input width-100 margin-right-50" style="margin-right: 50px;" type="text" name="Password" id="password" placeholder="Password">
+				<input class="simple-input width-100" type="text" name="custom-link" id="custom-link" placeholder="Custom address">
+			</div>
+			<div class="time-setting margin-top-20">
+				<div class="input_name">
+					Expire time setting
+				</div>
+				<hr>
+				<div class="input_field">
+					<div class="flex-center">
+						<input class="time-number" type="number" name="expire" id="expire" placeholder="Time">
+					</div>
+				<div class="padding-11">
+				<select id="select-option" class="time_select">
+					<option value="0">Minutes</option>
+					<option value="1">Hours</option>
+					<option value="2">Days</option>
+				</select>
+				</div>
+			</div>
+		</div>`
+}
+
+function setWithError(message) {
+	$('#display-error').text(message)
+	$('#shorten-link').text('')
+	$('#btn-copy').tooltip('hide').attr('data-original-title', 'click to copy')
+	$('.toast').toast('show');
+}
+
+function setWithSuccess(message) {
+	$('#shorten-link').text(message)
+	$('#btn-copy').tooltip('hide').attr('data-original-title', 'click to copy')
+	$('.toast').toast('hide');
+}

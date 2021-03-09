@@ -4,7 +4,8 @@ module.exports = (req, res, next)=>{
     let regExCustomLink = /^[-a-zA-Z0-9_\+\.]{7,100}$/i
     let regExExpire = /^[1-9][0-9]?$/i
     let regExOption = /^(?:0|1|2)$/i
-    let { id ,password, customLink, expire, selected} = req.body
+    var regExLongUrl = /^(?:http(?:s)?:\/\/)[-a-zA-Z0-9@:%_\+\)\(,.~#?&//=]{5,2000}$/i
+    let { id ,password, customLink, expire, selected, longUrl} = req.body
     if ( !regExID.test(id) ) 
         return res.json({ message: 'id does not exist', success: true })
     if ( !regExOption.test(selected))
@@ -18,5 +19,7 @@ module.exports = (req, res, next)=>{
     if ( expire )
         if ( !regExExpire.test(expire))
             return res.json({ message: 'expire illegal, only use 1-99', success: true })
+    if ( !regExLongUrl.test(longUrl) ) 
+        return res.json({ message: 'Long Url incorrect.', success: true })
     return next()
 }
