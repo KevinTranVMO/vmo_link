@@ -1,6 +1,6 @@
 
 $(document).ready(function () {
-
+	$('#btn-copy').hide()
 	$('#btn-copy').tooltip()
 	$('#option-div').fadeToggle()
 	$('#shorten-link').fadeIn()
@@ -50,7 +50,7 @@ $(document).ready(function () {
 				selected: selected
 			},
 			success: function (dt) {
-				enableBtn('#get-short-link-user', 'shorter')
+				enableBtn('#get-short-link-user', 'Shorten')
 				let { message, success } = dt
 				if (success == '1') {
 					setWithSuccess(message)
@@ -91,7 +91,7 @@ $(document).ready(function () {
 						$('#option-div').fadeIn()
 					}
 					else {
-						setWithError('you need login to use option advanced')
+						setWithError('You need login to use option advanced')
 					}
 				},
 				error: function (stt, err) {
@@ -138,6 +138,7 @@ function optionAdvanced() {
 }
 
 function setWithError(message) {
+	$('#btn-copy').hide()
 	$('#display-error').text(message)
 	$('#shorten-link').text('')
 	$('#btn-copy').tooltip('hide').attr('data-original-title', 'click to copy')
@@ -145,6 +146,7 @@ function setWithError(message) {
 }
 
 function setWithSuccess(message) {
+	$('#btn-copy').show()
 	$('#shorten-link').text(message)
 	$('#btn-copy').tooltip('hide').attr('data-original-title', 'click to copy')
 	$('.toast').toast('hide');
