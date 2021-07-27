@@ -1,3 +1,5 @@
+
+TRANVANMY
 # vmo-shortenlink
 
 step 1: sau khi clone project về thì tải các package yêu câu trong file package.json
