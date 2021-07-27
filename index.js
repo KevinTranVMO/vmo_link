@@ -92,7 +92,17 @@ app.post('/login', validate.validateLogin(), loginErrorValidateController,
 app.get('/auth/google', 
         passport.authenticate('google.login', { scope: ['profile', 'email'] }))
 
-app.get('/auth/google/callback', googleCallbackPassportRedirectOption)
+app.get('/auth/google/callback', passport.authenticate('google.login', { failureRedirect: '/login' }),
+    function(req, res) {
+      let email = req.user.google.api_email;
+      if (email.search("@vmodev.com") != -1) {
+        res.redirect('/');
+      } else {
+        req.logout()
+        res.redirect('/permission')
+        res.end()
+      }
+    })
 
 app.get('/login/forgot-password', (req, res) => { res.render('forgot_password') })
 
@@ -147,5 +157,8 @@ app.get('/statistic', (req, res)=>{
 app.post('/auth/user/statistic', isAuthenResponseXml, getSatistic)
 
 app.get('/page-not-found', (req, res) => { res.render('page_not_found') })
+
+app.get('/permission', (req, res) => { res.render('page_permission') })
+
 
 app.get('/:shortenlink', accessShortLink)
