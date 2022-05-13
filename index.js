@@ -6,6 +6,7 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const passport = require('passport')
 const favicon = require('serve-favicon')
+var cors = require('cors')
 
 const validate = require('./config/validator')
 require('./config/passport')
@@ -63,6 +64,7 @@ app.use(session({
     }
 }))
 app.use(flash())
+app.use(cors())
 app.use(passport.initialize())
 app.use(passport.session())
 
